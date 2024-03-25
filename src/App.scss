@@ -13,6 +13,23 @@
   }
 }
 
+
+.pc {
+  display: none; 
+}
+.mobile {
+   display: flex; // or block or table
+}
+
+@media screen and (min-width: 576px) {
+    .pc {
+        display: flex; // or block or table
+     }
+     .mobile {
+         display: none;
+      }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -11,6 +11,10 @@ const ModalContactForm = ({ show, handleClose, addContact, newContact }) => {
         <Modal.Body>
           <Form>
             <Form.Group>
+              <Form.Group>
+                <Form.Label>Image</Form.Label>
+                <Form.Control type="file" accept="image/*" />
+              </Form.Group>
               <Form.Label>First Name</Form.Label>
               <Form.Control type="text" placeholder="Enter first name" />
             </Form.Group>
