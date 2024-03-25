@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// @use 'styles/_colors.scss'; // assuming a styles directory under src/
+// @use '~nprogress/nprogress'; // loading a css file from the nprogress node module
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
