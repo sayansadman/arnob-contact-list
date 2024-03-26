@@ -8,8 +8,30 @@ const Contact = () => {
   const sortedContacts = MockContacts.sort((a, b) => {
     return a.first_name.localeCompare(b.first_name);
   });
+
   const [contacts, setContacts] = useState(sortedContacts);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const addContact = (contact) => {
+    const newContacts = [...contacts, contact];
+    newContacts.sort((a, b) => {
+      return a.first_name.localeCompare(b.first_name);
+    });
+    setContacts(newContacts);
+  };
+
+  const updateContact = (contact) => {
+    const newContacts = contacts.map((c) => {
+      return c.id === contact.id ? contact : c;
+    });
+    setContacts(newContacts);
+  };
+
+  const deleteContact = (id) => {
+    const newContacts = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContacts);
+  };
+
   const filteredContacts = contacts.filter((contact) => {
     return (
       contact.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -23,9 +45,13 @@ const Contact = () => {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <AddContact />
+        <AddContact saveNewContact={addContact} />
       </div>
-      <ContactList contacts={searchTerm === "" ? contacts : filteredContacts} />
+      <ContactList
+        updateContact={updateContact}
+        deleteContact={deleteContact}
+        contacts={searchTerm === "" ? contacts : filteredContacts}
+      />
     </div>
   );
 };
