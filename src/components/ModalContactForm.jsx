@@ -10,17 +10,17 @@ const ModalContactForm = ({
 }) => {
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>New Contact</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
           <Button variant="warning" onClick={handleReset}>
-            Reset
+            Clear
           </Button>
           <Button variant="success" onClick={handleSave}>
-            Add
+            Submit 
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,20 +1,28 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { Copy, Trash3 } from "react-bootstrap-icons";
+import {
+  Copy,
+  PencilSquare,
+  Heart,
+  HeartFill,
+  Trash3,
+} from "react-bootstrap-icons";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import ContactCard from "./ContactCard";
+import placeholderImage from "./placeholder-avatar.png";
 
 const ContactList = ({ contacts, updateContact, deleteContact }) => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedContact, setSelectedContact] = useState({});
+  const [selectedContactID, setSelectedContactID] = useState();
 
-  const handleDeleteClick = (contact) => {
-    setSelectedContact(contact);
+  const handleDeleteClick = (contactId) => {
+    // console.log(contactId);
+    setSelectedContactID(contactId);
     setShowModal(true);
   };
 
   const handleDelete = () => {
-    deleteContact(selectedContact);
+    deleteContact(selectedContactID);
     setShowModal(false);
   };
 
@@ -42,14 +50,12 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
           </thead>
           <tbody>
             {contacts.map((contact) => (
-              <tr key={contact.index}>
+              <tr key={contact.id}>
                 <td>
                   <img
                     className="avatar"
                     alt="contact-avatar"
-                    src={
-                      contact.image ? contact.image : "./placeholder-avatar.png"
-                    }
+                    src={contact.image ? contact.image : placeholderImage}
                   />
                 </td>
                 <td>{contact.first_name + " " + contact.last_name}</td>
@@ -59,14 +65,17 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                   <Button variant="light" onClick={() => handleCopy(contact)}>
                     <Copy />
                   </Button>
-                  {/* <Button variant="secondary">
-                    <PencilSquare /> 
-                   </Button> */}
+                  <Button variant="secondary">
+                    <PencilSquare />
+                  </Button>
                   <Button
                     variant="danger"
-                    onClick={() => handleDeleteClick(contact.index)}
+                    onClick={() => handleDeleteClick(contact.id)}
                   >
                     <Trash3 />
+                  </Button>
+                  <Button variant="seconday">
+                    {contact.starred ? <HeartFill /> : <Heart />}
                   </Button>
                 </td>
               </tr>
@@ -79,10 +88,10 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
           </tbody>
         </Table>
       </div>
-      <div className="mobile">
+      <div className="mobile" style={{ flexDirection: "column" }}>
         {contacts.map((contact) => (
           <ContactCard
-            key={contact.index}
+            key={contact.id}
             contact={contact}
             handleCopy={handleCopy}
             handleDeleteClick={handleDeleteClick}

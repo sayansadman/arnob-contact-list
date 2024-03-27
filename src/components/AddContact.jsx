@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Plus } from "react-bootstrap-icons";
 import ModalContactForm from "./ModalContactForm";
+import { v4 as uuidv4 } from "uuid";
 
 const AddContact = ({ addNewContact }) => {
   const [showModal, setShowModal] = useState(false);
@@ -10,25 +11,28 @@ const AddContact = ({ addNewContact }) => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    addNewContact(contact);
+    // console.log(contact);
+    const contactWithId = { ...contact, id: uuidv4() };
+    addNewContact(contactWithId);
     handleClose();
   };
 
   const handleChange = (event) => {
-    switch (event.target.className) {
-      case "first-name":
+    console.log(event.target.value, event.target.name);
+    switch (event.target.name) {
+      case "first_name":
         setContact({
           ...contact,
           first_name: event.target.value,
         });
         break;
-      case "last-name":
+      case "last_name":
         setContact({
           ...contact,
           last_name: event.target.value,
         });
         break;
-      case "phone-num":
+      case "phone_num":
         setContact({
           ...contact,
           phone_num: event.target.value,
@@ -54,7 +58,7 @@ const AddContact = ({ addNewContact }) => {
   return (
     <div>
       <Button variant="info" onClick={handleShow}>
-        <Plus fontSize={"large"} />
+        <Plus fontSize={"x-large"} style={{marginBottom: "4px"}} />
         Add Contact
       </Button>
       <ModalContactForm
@@ -76,6 +80,7 @@ const AddContact = ({ addNewContact }) => {
             </Form.Group>
             <Form.Label>First Name</Form.Label>
             <Form.Control
+              name="first_name"
               className={"first-name"}
               onChange={handleChange}
               value={contact.first_name}
@@ -86,6 +91,7 @@ const AddContact = ({ addNewContact }) => {
           <Form.Group>
             <Form.Label>Last Name</Form.Label>
             <Form.Control
+              name="last_name"
               className={"last-name"}
               onChange={handleChange}
               value={contact.last_name}
@@ -96,6 +102,7 @@ const AddContact = ({ addNewContact }) => {
           <Form.Group>
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
+              name="phone_num"
               className={"phone-num"}
               onChange={handleChange}
               value={contact.phone_num}
@@ -106,6 +113,7 @@ const AddContact = ({ addNewContact }) => {
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
+              name="email"
               className={"email"}
               onChange={handleChange}
               value={contact.email}

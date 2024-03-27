@@ -14,7 +14,9 @@ const DeleteConfirmationModal = ({ showModal, handleClose, handleDelete }) => {
         <Button variant="light" onClick={handleClose}>
           No
         </Button>
-        <Button variant="danger">Yes</Button>
+        <Button variant="danger" onClick={() => handleDelete()}>
+          Yes
+        </Button>
       </Modal.Footer>
     </Modal>
   );
