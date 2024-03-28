@@ -7,12 +7,13 @@ const ModalContactForm = ({
   handleSave,
   children,
   handleReset,
+  title,
 }) => {
   return (
     <>
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Contact</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
@@ -20,7 +21,7 @@ const ModalContactForm = ({
             Clear
           </Button>
           <Button variant="success" onClick={handleSave}>
-            Submit 
+            Submit
           </Button>
         </Modal.Footer>
       </Modal>

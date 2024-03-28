@@ -3,25 +3,26 @@ import SearchBar from "./SearchBar";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import MockContacts from "./MockContacts";
-import AddContactToast from "./AddContactToast";
+import { ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const sortedContacts = MockContacts.sort((a, b) => {
-    return a.first_name.localeCompare(b.first_name);
+    return a.firstName.localeCompare(b.firstName);
   });
 
   const [contacts, setContacts] = useState(sortedContacts);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showContactAddedToast, setShowContactAddedToast] = useState(false);
+  // const [showContactAddedToast, setShowContactAddedToast] = useState(false);
 
   const addContact = (contact) => {
     const newContacts = [...contacts, contact];
     console.log(newContacts);
     newContacts.sort((a, b) => {
-      return a.first_name.localeCompare(b.first_name);
+      return a.firstName.localeCompare(b.firstName);
     });
     setContacts(newContacts);
-    setShowContactAddedToast(true);
+    toast.success("Contact added successfully!");
   };
 
   const updateContact = (contact) => {
@@ -29,19 +30,21 @@ const Contact = () => {
       return c.id === contact.id ? contact : c;
     });
     setContacts(newContacts);
+    toast.success("Contact updated successfully!");
   };
 
   const deleteContact = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
+    toast.info("Contact deleted successfully!");
   };
 
   const filteredContacts = contacts.filter((contact) => {
     return (
-      contact.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.phone_num.toLowerCase().includes(searchTerm.toLowerCase())
+      contact.phoneNum.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -49,16 +52,20 @@ const Contact = () => {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <AddContact addNewContact={addContact} />
+        <AddContact className="add-contact-btn" addNewContact={addContact} />
       </div>
       <ContactList
         updateContact={updateContact}
         deleteContact={deleteContact}
         contacts={searchTerm === "" ? contacts : filteredContacts}
       />
-      <AddContactToast
-        showContactAddedToast={showContactAddedToast}
-        setShowContactAddedToast={setShowContactAddedToast}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Zoom}
+        theme="dark"
       />
     </div>
   );

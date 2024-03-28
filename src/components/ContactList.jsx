@@ -10,13 +10,15 @@ import {
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import ContactCard from "./ContactCard";
 import placeholderImage from "./placeholder-avatar.png";
+import UpdateContactModal from "./UpdateContactModal";
 
 const ContactList = ({ contacts, updateContact, deleteContact }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedContact, setSelectedContact] = useState({});
   const [selectedContactID, setSelectedContactID] = useState();
 
   const handleDeleteClick = (contactId) => {
-    // console.log(contactId);
     setSelectedContactID(contactId);
     setShowModal(true);
   };
@@ -29,10 +31,20 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
   const handleClose = () => setShowModal(false);
 
   const handleCopy = (contact) => {
-    const contactDetails = `Name: ${contact.first_name} ${contact.last_name}
-    \nEmail: ${contact.email}
-    \nPhone: ${contact.phone_num}`;
+    const name = contact.firstName + " " + contact.lastName;
+    const email = contact.email;
+    const phone = contact.phoneNum;
+    var contactDetails = "Name: " + name + "\nPhone: " + phone;
+    if (email !== "") {
+      contactDetails += "\nEmail: " + email;
+    }
     navigator.clipboard.writeText(contactDetails);
+  };
+
+  const handleUpdate = (contact) => {
+    setSelectedContact(contact);
+    setShowUpdateModal(true);
+    // updateContact(contact);
   };
 
   return (
@@ -58,14 +70,20 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                     src={contact.image ? contact.image : placeholderImage}
                   />
                 </td>
-                <td>{contact.first_name + " " + contact.last_name}</td>
+                <td>{contact.firstName + " " + contact.lastName}</td>
                 <td>{contact.email}</td>
-                <td>{contact.phone_num}</td>
+                <td>{contact.phoneNum}</td>
                 <td>
+                  <Button variant="seconday">
+                    {contact.starred ? <HeartFill /> : <Heart />}
+                  </Button>
                   <Button variant="light" onClick={() => handleCopy(contact)}>
                     <Copy />
                   </Button>
-                  <Button variant="secondary">
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleUpdate(contact)}
+                  >
                     <PencilSquare />
                   </Button>
                   <Button
@@ -73,9 +91,6 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                     onClick={() => handleDeleteClick(contact.id)}
                   >
                     <Trash3 />
-                  </Button>
-                  <Button variant="seconday">
-                    {contact.starred ? <HeartFill /> : <Heart />}
                   </Button>
                 </td>
               </tr>
@@ -98,6 +113,12 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
           />
         ))}
       </div>
+      <UpdateContactModal
+        show={showUpdateModal}
+        selectedContact={selectedContact}
+        handleClose={() => setShowUpdateModal(false)}
+        handleSubmit={updateContact}
+      />
     </div>
   );
 };

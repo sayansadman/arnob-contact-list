@@ -21,9 +21,21 @@
    display: flex; // or block or table
 }
 
+.add-contact-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
 @media screen and (min-width: 576px) {
     .pc {
         display: flex; // or block or table
+     }
+     .add-contact-btn{
+        position: static;
+        bottom: 0px;
+        right: 0px;
      }
      .mobile {
          display: none;
@@ -73,7 +85,12 @@
 
 .contact-card {
   display: flex !important;
+  // background-color: grey;
   // flex-direction: row !important;
   // flex-direction: column;
   
+}
+
+.add-contact-btn {
+
 }

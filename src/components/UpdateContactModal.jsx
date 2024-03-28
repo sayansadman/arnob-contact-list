@@ -1,25 +1,10 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { Plus } from "react-bootstrap-icons";
-import ModalContactForm from "./ModalContactForm";
-import { v4 as uuidv4 } from "uuid";
+import { Button, Modal, Form } from "react-bootstrap";
 
-const AddContact = ({ addNewContact, className }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const [contact, setContact] = useState({});
-
-  const handleSave = (event) => {
-    event.preventDefault();
-    // console.log(contact);
-    const contactWithId = { ...contact, id: uuidv4(), starred: false };
-    addNewContact(contactWithId);
-    handleReset();
-    handleClose();
-  };
-
+const UpdateContactModal = ({ selectedContact, handleSubmit, handleClose }) => {
+  const [contact, setContact] = useState(selectedContact);
   const handleChange = (event) => {
-    console.log(event.target.value, event.target.name);
+    // console.log(event.target.value, event.target.name);
     switch (event.target.name) {
       case "firstName":
         setContact({
@@ -55,39 +40,12 @@ const AddContact = ({ addNewContact, className }) => {
         break;
     }
   };
-
-  const handleReset = () => {
-    setContact({
-      id: uuidv4(),
-      firstName: "",
-      lastName: "",
-      phoneNum: "",
-      email: "",
-      image: "",
-      starred: false,
-    });
-  };
-
-  const handleShow = () => setShowModal(true);
-
-  const handleClose = () => {
-    handleReset();
-    setShowModal(false);
-  };
-
   return (
-    <div className={className}>
-      <Button variant="info" onClick={handleShow}>
-        <Plus fontSize={"x-large"} style={{ marginBottom: "4px" }} />
-        Add Contact
-      </Button>
-      <ModalContactForm
-        show={showModal}
-        handleClose={handleClose}
-        handleSave={handleSave}
-        handleReset={handleReset}
-        title="Add Contact"
-      >
+    <Modal>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Contact</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <Form>
           <Form.Group>
             <Form.Group>
@@ -144,9 +102,17 @@ const AddContact = ({ addNewContact, className }) => {
             />
           </Form.Group>
         </Form>
-      </ModalContactForm>
-    </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="warning" onClick={() => handleClose()}>
+          Close
+        </Button>
+        <Button variant="success" onClick={() => handleSubmit(contact)}>
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
-export default AddContact;
+export default UpdateContactModal;
