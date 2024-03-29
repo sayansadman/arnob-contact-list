@@ -44,8 +44,9 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
   const handleUpdate = (contact) => {
     setSelectedContact(contact);
     setShowUpdateModal(true);
-    // updateContact(contact);
   };
+
+  const handleCloseUpdateModal = () => setShowUpdateModal(false);
 
   return (
     <div>
@@ -116,7 +117,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
       <UpdateContactModal
         show={showUpdateModal}
         selectedContact={selectedContact}
-        handleClose={() => setShowUpdateModal(false)}
+        handleClose={handleCloseUpdateModal}
         handleSubmit={updateContact}
       />
     </div>

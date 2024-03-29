@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 
-const UpdateContactModal = ({ selectedContact, handleSubmit, handleClose }) => {
-  const [contact, setContact] = useState(selectedContact);
+const UpdateContactModal = ({
+  show,
+  selectedContact,
+  handleSubmit,
+  handleClose,
+}) => {
+  const [contact, setContact] = useState({});
+  //   console.log(contact);
+  //   console.log(selectedContact);
+
+  useEffect(() => {
+    setContact(selectedContact);
+  }, [selectedContact]);
+
   const handleChange = (event) => {
     // console.log(event.target.value, event.target.name);
     switch (event.target.name) {
@@ -40,8 +52,9 @@ const UpdateContactModal = ({ selectedContact, handleSubmit, handleClose }) => {
         break;
     }
   };
+  //   console.log(contact);
   return (
-    <Modal>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Update Contact</Modal.Title>
       </Modal.Header>
@@ -63,6 +76,7 @@ const UpdateContactModal = ({ selectedContact, handleSubmit, handleClose }) => {
               name="firstName"
               className={"first-name"}
               onChange={handleChange}
+              //   defaultValue={contact.firstName}
               value={contact.firstName}
               type="text"
               placeholder="Enter first name"
@@ -107,7 +121,13 @@ const UpdateContactModal = ({ selectedContact, handleSubmit, handleClose }) => {
         <Button variant="warning" onClick={() => handleClose()}>
           Close
         </Button>
-        <Button variant="success" onClick={() => handleSubmit(contact)}>
+        <Button
+          variant="success"
+          onClick={() => {
+            handleClose();
+            handleSubmit(contact);
+          }}
+        >
           Submit
         </Button>
       </Modal.Footer>
