@@ -95,7 +95,7 @@ const AddContact = ({ addNewContact, className }) => {
 
   return (
     <div className={className}>
-      <Button variant="info" onClick={handleShow}>
+      <Button variant="secondary" onClick={handleShow}>
         <Plus fontSize={"x-large"} style={{ marginBottom: "4px" }} />
         Add Contact
       </Button>

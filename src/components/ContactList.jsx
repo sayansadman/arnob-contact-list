@@ -55,7 +55,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
   return (
     <div>
       <div className="pc">
-        <Table bordered striped hover>
+        <Table variant="light" bordered striped hover>
           <thead>
             <tr>
               <th>Avatar</th>
@@ -76,13 +76,20 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                   />
                 </td>
                 <td>{contact.firstName + " " + contact.lastName}</td>
-                <td>{contact.email}</td>
+                <td>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </td>
                 <td>{contact.phoneNum}</td>
                 <td>
                   <Button
                     style={{ marginRight: "15px" }}
                     variant="seconday"
                     onClick={() => toggleFavorite(contact)}
+                    title={
+                      contact.starred
+                        ? "Remove from favourites"
+                        : "Add to favourites"
+                    }
                   >
                     {contact.starred ? <HeartFill /> : <Heart />}
                   </Button>
@@ -90,13 +97,15 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                     style={{ marginRight: "15px" }}
                     variant="light"
                     onClick={() => handleCopy(contact)}
+                    title="Copy Contact"
                   >
                     <Copy />
                   </Button>
                   <Button
                     style={{ marginRight: "15px" }}
-                    variant="secondary"
+                    variant="dark"
                     onClick={() => handleUpdate(contact)}
+                    title="Edit Contact"
                   >
                     <PencilSquare />
                   </Button>
@@ -104,6 +113,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                     style={{ marginRight: "15px" }}
                     variant="danger"
                     onClick={() => handleDeleteClick(contact.id)}
+                    title="Delete Contact"
                   >
                     <Trash3 />
                   </Button>

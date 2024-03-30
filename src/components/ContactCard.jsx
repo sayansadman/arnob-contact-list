@@ -32,22 +32,49 @@ const ContactCard = ({
       <Card.Body>
         <Card.Title>{contact.firstName + " " + contact.lastName}</Card.Title>
         <Card.Text>
-          Email: {contact.email}
-          <br />
+          {contact.email ? `Email: ` : ""}
+          {contact.email ? (
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          ) : (
+            ""
+          )}
+          {contact.email && <br />}
           Phone: {contact.phoneNum}
         </Card.Text>
       </Card.Body>
       <Card.Footer style={{ display: "flex", justifyContent: "end" }}>
-        <Button style={{marginRight: "10px"}} variant="seconday" onClick={() => toggleStar(contact)}>
+        <Button
+          style={{ marginRight: "10px" }}
+          variant="seconday"
+          onClick={() => toggleStar(contact)}
+          title={
+            contact.starred ? "Remove from favourites" : "Add to favourites"
+          }
+        >
           {contact.starred ? <HeartFill /> : <Heart />}
         </Button>
-        <Button style={{marginRight: "10px"}} variant="light" onClick={() => handleCopy(contact)}>
+        <Button
+          style={{ marginRight: "10px" }}
+          variant="light"
+          onClick={() => handleCopy(contact)}
+          title="Copy Contact"
+        >
           <Copy />
         </Button>
-        <Button style={{marginRight: "10px"}} variant="secondary" onClick={() => handleUpdate(contact)}>
+        <Button
+          style={{ marginRight: "10px" }}
+          variant="secondary"
+          onClick={() => handleUpdate(contact)}
+          title="Edit Contact"
+        >
           <PencilSquare />
         </Button>
-        <Button style={{marginRight: "10px"}} variant="danger" onClick={() => handleDeleteClick(contact.id)}>
+        <Button
+          title="Delete Contact"
+          style={{ marginRight: "10px" }}
+          variant="danger"
+          onClick={() => handleDeleteClick(contact.id)}
+        >
           <Trash3 />
         </Button>
       </Card.Footer>

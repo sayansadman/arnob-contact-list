@@ -8,7 +8,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
   return (
     <div className="search-bar">
       {/* <Search /> */}
-      <Search />
+      <Search style={{ marginRight: "5px" }} />
       <input
         name="search"
         type="text"

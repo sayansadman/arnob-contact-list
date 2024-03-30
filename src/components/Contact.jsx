@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
@@ -15,6 +15,13 @@ const Contact = () => {
   const [contacts, setContacts] = useState(sortedContacts);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFav, setShowFav] = useState(false);
+
+  useEffect(() => {
+    const contacts = localStorage.getItem("contacts");
+    if (contacts) {
+      setContacts(JSON.parse(contacts));
+    }
+  }, []);
 
   const addContact = (contact) => {
     const newContacts = [...contacts, contact];
@@ -63,8 +70,12 @@ const Contact = () => {
         <AddContact className="add-contact-btn" addNewContact={addContact} />
       </div>
       <br />
-      <Button variant="dark" onClick={() => setShowFav(!showFav)}>
-        {showFav ? "Show All Contacts" : "Show Favorites"}
+      <Button
+        style={{ width: "170px", marginBottom: "10px" }}
+        variant="dark"
+        onClick={() => setShowFav(!showFav)}
+      >
+        {showFav ? "Show All Contacts" : "Show Favourites"}
       </Button>
       <br />
       <ContactList
