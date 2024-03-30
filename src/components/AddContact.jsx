@@ -7,13 +7,31 @@ import { v4 as uuidv4 } from "uuid";
 const AddContact = ({ addNewContact, className }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState({
+    id: uuidv4(),
+    firstName: "",
+    lastName: "",
+    phoneNum: "",
+    email: "",
+    image: "",
+    starred: false,
+  });
 
   const handleSave = (event) => {
     event.preventDefault();
-    // console.log(contact);
-    const contactWithId = { ...contact, id: uuidv4(), starred: false };
-    addNewContact(contactWithId);
+    if (!contact.firstName) {
+      alert("First Name is required!");
+      return;
+    }
+    if (!contact.lastName) {
+      alert("Last Name is required!");
+      return;
+    }
+    if (!contact.phoneNum) {
+      alert("Phone Number is required!");
+      return;
+    }
+    addNewContact(contact);
     handleReset();
     handleClose();
   };
@@ -96,12 +114,14 @@ const AddContact = ({ addNewContact, className }) => {
                 name="image"
                 className={"image-input"}
                 value={contact.image}
-                type="file"
-                accept="image/*"
+                type="text"
+                placeholder="Enter image URL"
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Label>First Name</Form.Label>
             <Form.Control
+              required
               name="firstName"
               className={"first-name"}
               onChange={handleChange}
@@ -113,6 +133,7 @@ const AddContact = ({ addNewContact, className }) => {
           <Form.Group>
             <Form.Label>Last Name</Form.Label>
             <Form.Control
+              required
               name="lastName"
               className={"last-name"}
               onChange={handleChange}
@@ -124,6 +145,7 @@ const AddContact = ({ addNewContact, className }) => {
           <Form.Group>
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
+              required
               name="phoneNum"
               className={"phone-num"}
               onChange={handleChange}

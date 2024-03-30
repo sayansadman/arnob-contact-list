@@ -67,8 +67,9 @@ const UpdateContactModal = ({
                 name="image"
                 className={"image-input"}
                 value={contact.image}
-                type="file"
-                accept="image/*"
+                type="text"
+                placeholder="Enter image URL"
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Label>First Name</Form.Label>

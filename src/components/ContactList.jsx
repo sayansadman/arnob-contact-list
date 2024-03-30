@@ -75,19 +75,25 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                 <td>{contact.email}</td>
                 <td>{contact.phoneNum}</td>
                 <td>
-                  <Button variant="seconday">
+                  <Button style={{ marginRight: "15px" }} variant="seconday">
                     {contact.starred ? <HeartFill /> : <Heart />}
                   </Button>
-                  <Button variant="light" onClick={() => handleCopy(contact)}>
+                  <Button
+                    style={{ marginRight: "15px" }}
+                    variant="light"
+                    onClick={() => handleCopy(contact)}
+                  >
                     <Copy />
                   </Button>
                   <Button
+                    style={{ marginRight: "15px" }}
                     variant="secondary"
                     onClick={() => handleUpdate(contact)}
                   >
                     <PencilSquare />
                   </Button>
                   <Button
+                    style={{ marginRight: "15px" }}
                     variant="danger"
                     onClick={() => handleDeleteClick(contact.id)}
                   >
