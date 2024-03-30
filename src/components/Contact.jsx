@@ -4,6 +4,7 @@ import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import MockContacts from "./MockContacts";
 import { ToastContainer, Zoom, toast } from "react-toastify";
+import { Button } from "react-bootstrap";
 import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
@@ -13,7 +14,7 @@ const Contact = () => {
 
   const [contacts, setContacts] = useState(sortedContacts);
   const [searchTerm, setSearchTerm] = useState("");
-  // const [showContactAddedToast, setShowContactAddedToast] = useState(false);
+  const [showFav, setShowFav] = useState(false);
 
   const addContact = (contact) => {
     const newContacts = [...contacts, contact];
@@ -22,7 +23,8 @@ const Contact = () => {
       return a.firstName.localeCompare(b.firstName);
     });
     setContacts(newContacts);
-    toast.success("Contact added successfully!");
+    localStorage.setItem("contacts", JSON.stringify(newContacts));
+    toast.success("New contact added successfully!");
   };
 
   const updateContact = (contact) => {
@@ -30,12 +32,14 @@ const Contact = () => {
       return c.id === contact.id ? contact : c;
     });
     setContacts(newContacts);
+    localStorage.setItem("contacts", JSON.stringify(newContacts));
     toast.info("A contact has been updated!");
   };
 
   const deleteContact = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
+    localStorage.setItem("contacts", JSON.stringify(newContacts));
     toast.warning("A contact has been deleted!");
   };
 
@@ -48,16 +52,31 @@ const Contact = () => {
     );
   });
 
+  const favContacts = contacts.filter((contact) => {
+    return contact.starred;
+  });
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <AddContact className="add-contact-btn" addNewContact={addContact} />
       </div>
+      <br />
+      <Button variant="dark" onClick={() => setShowFav(!showFav)}>
+        {showFav ? "Show All Contacts" : "Show Favorites"}
+      </Button>
+      <br />
       <ContactList
         updateContact={updateContact}
         deleteContact={deleteContact}
-        contacts={searchTerm === "" ? contacts : filteredContacts}
+        contacts={
+          searchTerm === ""
+            ? showFav
+              ? favContacts
+              : contacts
+            : filteredContacts
+        }
       />
 
       <ToastContainer
