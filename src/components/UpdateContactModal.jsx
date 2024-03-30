@@ -54,7 +54,7 @@ const UpdateContactModal = ({
   };
   //   console.log(contact);
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal centered show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Update Contact</Modal.Title>
       </Modal.Header>
@@ -66,7 +66,7 @@ const UpdateContactModal = ({
               <Form.Control
                 name="image"
                 className={"image-input"}
-                value={contact.image}
+                defaultValue={contact.image}
                 type="text"
                 placeholder="Enter image URL"
                 onChange={handleChange}
@@ -78,7 +78,7 @@ const UpdateContactModal = ({
               className={"first-name"}
               onChange={handleChange}
               //   defaultValue={contact.firstName}
-              value={contact.firstName}
+              defaultValue={contact.firstName}
               type="text"
               placeholder="Enter first name"
             />
@@ -89,7 +89,7 @@ const UpdateContactModal = ({
               name="lastName"
               className={"last-name"}
               onChange={handleChange}
-              value={contact.lastName}
+              defaultValue={contact.lastName}
               type="text"
               placeholder="Enter last name"
             />
@@ -100,7 +100,7 @@ const UpdateContactModal = ({
               name="phoneNum"
               className={"phone-num"}
               onChange={handleChange}
-              value={contact.phoneNum}
+              defaultValue={contact.phoneNum}
               type="text"
               placeholder="Enter phone number"
             />
@@ -111,7 +111,7 @@ const UpdateContactModal = ({
               name="email"
               className={"email"}
               onChange={handleChange}
-              value={contact.email}
+              defaultValue={contact.email}
               type="text"
               placeholder="Enter email"
             />

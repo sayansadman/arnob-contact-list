@@ -1,13 +1,12 @@
 import React from "react";
 import { Search } from "react-bootstrap-icons";
 
-
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
   return (
-    <div>
+    <div className="search-bar">
       {/* <Search /> */}
       <Search />
       <input

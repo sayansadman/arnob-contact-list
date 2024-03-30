@@ -14,9 +14,15 @@ const ContactCard = ({
   handleCopy,
   handleDeleteClick,
   handleUpdate,
+  toggleStar,
 }) => {
   return (
-    <Card className="contact-card" bg="light" border="info">
+    <Card
+      style={{ margin: "20px", width: "22rem " }}
+      className="contact-card"
+      bg="light"
+      border="info"
+    >
       <Card.Img
         // style={{ display: "flex", justifyContent: "right" }}
         variant="top"
@@ -32,16 +38,16 @@ const ContactCard = ({
         </Card.Text>
       </Card.Body>
       <Card.Footer style={{ display: "flex", justifyContent: "end" }}>
-        <Button variant="seconday">
+        <Button style={{marginRight: "10px"}} variant="seconday" onClick={() => toggleStar(contact)}>
           {contact.starred ? <HeartFill /> : <Heart />}
         </Button>
-        <Button variant="light" onClick={() => handleCopy(contact)}>
+        <Button style={{marginRight: "10px"}} variant="light" onClick={() => handleCopy(contact)}>
           <Copy />
         </Button>
-        <Button variant="secondary" onClick={() => handleUpdate(contact)}>
+        <Button style={{marginRight: "10px"}} variant="secondary" onClick={() => handleUpdate(contact)}>
           <PencilSquare />
         </Button>
-        <Button variant="danger" onClick={() => handleDeleteClick(contact.id)}>
+        <Button style={{marginRight: "10px"}} variant="danger" onClick={() => handleDeleteClick(contact.id)}>
           <Trash3 />
         </Button>
       </Card.Footer>

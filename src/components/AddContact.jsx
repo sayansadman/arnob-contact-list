@@ -27,8 +27,8 @@ const AddContact = ({ addNewContact, className }) => {
       alert("Last Name is required!");
       return;
     }
-    if (!contact.phoneNum) {
-      alert("Phone Number is required!");
+    if (!/^\d*$/.test(contact.phoneNum)) {
+      alert("Phone Number required and must be digits only!");
       return;
     }
     addNewContact(contact);
@@ -146,6 +146,7 @@ const AddContact = ({ addNewContact, className }) => {
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
               required
+              pattern="\d*"
               name="phoneNum"
               className={"phone-num"}
               onChange={handleChange}

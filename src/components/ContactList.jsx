@@ -48,6 +48,10 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
 
   const handleCloseUpdateModal = () => setShowUpdateModal(false);
 
+  const toggleFavorite = (contact) => {
+    const updatedContact = { ...contact, starred: !contact.starred };
+    updateContact(updatedContact);
+  };
   return (
     <div>
       <div className="pc">
@@ -75,7 +79,11 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                 <td>{contact.email}</td>
                 <td>{contact.phoneNum}</td>
                 <td>
-                  <Button style={{ marginRight: "15px" }} variant="seconday">
+                  <Button
+                    style={{ marginRight: "15px" }}
+                    variant="seconday"
+                    onClick={() => toggleFavorite(contact)}
+                  >
                     {contact.starred ? <HeartFill /> : <Heart />}
                   </Button>
                   <Button
@@ -117,6 +125,8 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
             contact={contact}
             handleCopy={handleCopy}
             handleDeleteClick={handleDeleteClick}
+            handleUpdate={handleUpdate}
+            toggleStar={toggleFavorite}
           />
         ))}
       </div>

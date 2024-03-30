@@ -30,13 +30,13 @@ const Contact = () => {
       return c.id === contact.id ? contact : c;
     });
     setContacts(newContacts);
-    toast.success("Contact updated successfully!");
+    toast.info("A contact has been updated!");
   };
 
   const deleteContact = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(newContacts);
-    toast.info("Contact deleted successfully!");
+    toast.warning("A contact has been deleted!");
   };
 
   const filteredContacts = contacts.filter((contact) => {
