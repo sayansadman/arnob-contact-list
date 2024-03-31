@@ -12,7 +12,7 @@ import ContactCard from "./ContactCard";
 import placeholderImage from "./placeholder-avatar.png";
 import UpdateContactModal from "./UpdateContactModal";
 
-const ContactList = ({ contacts, updateContact, deleteContact }) => {
+const ContactList = ({ contacts, updateContact, deleteContact, copyToast }) => {
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedContact, setSelectedContact] = useState({});
@@ -39,6 +39,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
       contactDetails += "\nEmail: " + email;
     }
     navigator.clipboard.writeText(contactDetails);
+    copyToast();
   };
 
   const handleUpdate = (contact) => {
@@ -79,7 +80,9 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                 <td>
                   <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 </td>
-                <td>{contact.phoneNum}</td>
+                <td>
+                  <a href={`tel:${contact.phoneNum}`}>{contact.phoneNum}</a>
+                </td>
                 <td>
                   <Button
                     style={{ marginRight: "15px" }}

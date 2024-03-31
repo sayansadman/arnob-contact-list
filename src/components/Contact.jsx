@@ -50,6 +50,10 @@ const Contact = () => {
     toast.warning("A contact has been deleted!");
   };
 
+  const copyContact = () => {
+    toast.info("Contact copied to clipboard!");
+  };
+
   const filteredContacts = contacts.filter((contact) => {
     return (
       contact.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -79,6 +83,7 @@ const Contact = () => {
       </Button>
       <br />
       <ContactList
+        copyToast={() => copyContact()}
         updateContact={updateContact}
         deleteContact={deleteContact}
         contacts={
@@ -92,7 +97,7 @@ const Contact = () => {
 
       <ToastContainer
         position="bottom-right"
-        autoClose={3000}
+        autoClose={1000}
         hideProgressBar={true}
         transition={Zoom}
         theme="dark"

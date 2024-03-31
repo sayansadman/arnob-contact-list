@@ -39,7 +39,7 @@ const ContactCard = ({
             ""
           )}
           {contact.email && <br />}
-          Phone: {contact.phoneNum}
+          Phone: <a href={`tel:${contact.phoneNum}`}>{contact.phoneNum}</a>
         </Card.Text>
       </Card.Body>
       <Card.Footer style={{ display: "flex", justifyContent: "end" }}>
